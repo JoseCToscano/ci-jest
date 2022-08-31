@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  migrate:
+    command: ./wait-for-it.sh db:3306 -- cd db && knex migrate:latest --env ci && knex seed:run --env ci
+    volumes:
+      - ./target:/opt/setup/target
+    image: migrate-mysql
+    build:
+      context: ../../
+      dockerfile: test/docker/migrate-mysql.dockerfile
+    depends_on:
+      - "db"
+
+  db:
+    image: mysql:5.7.28
+    environment:
+      MYSQL_ROOT_PASSWORD: 'ROOT_PASSWORD'
+      MYSQL_DATABASE: 'mydb' # create a db by default
+    restart: on-failure
+
+# force containers to join cloudbuild network
+# allows them to communicate on the google cloud build system
+networks:
+  default:
+    external:
+      name: cloudbuild
