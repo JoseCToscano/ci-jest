@@ -2,7 +2,7 @@ version: '3'
 
 services:
   migrate:
-    command: ./wait-for-it.sh db:3306 -- cd db && echo insert-migrations-here!
+    command: ./wait-for-it.sh db:3308 -- cd db && echo insert-migrations-here!
     volumes:
       - ./target:/opt/setup/target
     image: migrate-mysql
