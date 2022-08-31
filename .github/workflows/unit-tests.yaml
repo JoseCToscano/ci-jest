@@ -1,7 +1,7 @@
 name: Unit tests
 on: [push]
 jobs:
-  eslint:
+  unit-tests:
     name: Running Unit tests
     runs-on: ubuntu-latest
 

@@ -16,4 +16,10 @@ describe('Example Integration tests', () => {
         await service.delayedConsoleLog('mesg', 1000);
         expect(clgSpy).toHaveBeenCalledWith('mesg');
     })
+
+    test('Sample test 2', async ()=>{
+        const clgSpy = jest.spyOn(console, 'log').mockImplementation();
+        await service.delayedConsoleLog('mesg', 1);
+        expect(clgSpy).toHaveBeenCalledWith('mesg 5');
+    })
 });
