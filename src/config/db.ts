@@ -1,7 +1,7 @@
 import mysql from 'promise-mysql';
 const DB_HOST="localhost"
 const DB_PORT="3306"
-const DB_USER="ci_jest_user"
+const DB_USER="root"
 const DB_PASSWORD="ci_jest_password"
 const DB_NAME="ci_jest_db"
 
