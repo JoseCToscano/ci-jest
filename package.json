@@ -10,7 +10,9 @@
     "dev": "node ./node_modules/nodemon/bin/nodemon.js dist/index.js",
     "builddev": "npm run build && npm run dev",
     "lint": "eslint . --ext .ts",
-    "test": "jest"
+    "test": "jest '(\\.|/)(test)\\.tsx?$'",
+    "test:unit": "jest '(\\.|/)(unit.test)\\.tsx?$'",
+    "test:integration": "jest '(\\.|/)(int.test)\\.tsx?$'"
   },
   "repository": {
     "type": "git",

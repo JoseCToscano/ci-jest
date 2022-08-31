@@ -1,8 +1,8 @@
-name: Unit tests
+name: Integration tests
 on: [push]
 jobs:
   eslint:
-    name: Running Unit tests
+    name: Running Integration tests
     runs-on: ubuntu-latest
 
     steps:
@@ -12,4 +12,4 @@ jobs:
       - name: Install packages
         run: npm ci
       - name: Unit tests
-        run: npm run test:unit
+        run: npm run test:inegration
