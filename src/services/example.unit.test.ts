@@ -11,10 +11,6 @@ describe('Example unit tests', () => {
 		jest.restoreAllMocks();
 	});
 
-	afterAll(()=>{
-		console.log('After all')
-	})
-
 	test('Sample test', async ()=>{
 		const clgSpy = jest.spyOn(console, 'log').mockImplementation();
 		await service.delayedConsoleLog('mesg', 2000);

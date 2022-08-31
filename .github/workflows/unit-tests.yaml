@@ -1,8 +1,8 @@
-name: CI
+name: Unit tests
 on: [push]
 jobs:
   eslint:
-    name: Lint code base
+    name: Running Unit tests
     runs-on: ubuntu-latest
 
     steps:
@@ -11,5 +11,5 @@ jobs:
 
       - name: Install packages
         run: npm ci
-      - name: Lint code with ESlint
-        run: npm run lint
+      - name: Unit tests
+        run: npm run test
