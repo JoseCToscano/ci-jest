@@ -20,10 +20,3 @@ services:
       MYSQL_ROOT_PASSWORD: 'ci_jest_password'
       MYSQL_DATABASE: 'ci_jest_db' # create a db by default
     restart: on-failure
-
-# force containers to join cloudbuild network
-# allows them to communicate on the google cloud build system
-networks:
-  default:
-    external:
-      name: samplenetwork

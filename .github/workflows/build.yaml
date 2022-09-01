@@ -9,10 +9,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: nwtwork
-        run: |
-          docker network create samplenetwork
-
       - name: Build image
         id: build-image
         run: |
@@ -28,5 +24,5 @@ jobs:
         run: npm ci
       - name: DB tests
         run: npm run test:unit
-          environment: 'MYSQL_HOST=db'
+
 

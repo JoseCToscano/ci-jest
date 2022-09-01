@@ -1,0 +1,28 @@
+# docker-compose.yaml
+version: "3.3"
+services:
+  mysqldb:
+    image: "mysql"
+    ports:
+      - "3306:3306"
+    volumes:
+      - data:/data/db
+      - ./env/mysql.env:/env/mysql.env
+    env_file:
+      - ./env/mysql.env
+  app:
+    build: {the path where your Dockerfile is}
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./env/.env:/env/.env
+    env_file:
+      - ./env/.env
+    links:
+      - mysqldb
+    depends_on:
+      - mysqldb
+
+volumes:
+  data:
