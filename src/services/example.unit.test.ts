@@ -27,7 +27,6 @@ describe('Example unit tests', () => {
 
 	test('Sample test with connection', async ()=>{
 		const [result] = await connection.query('SELECT 1 + 1 AS solution')
-		console.log(result);
 		expect(result).toBeDefined();
 	});
 });
