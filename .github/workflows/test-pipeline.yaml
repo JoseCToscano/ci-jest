@@ -1,8 +1,8 @@
-name: DB tests
+name: Automated test pipeline
 on: [push]
 jobs:
   integration-tests:
-    name: Running DB Unit tests
+    name: Running automated test pipeline
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,10 @@ jobs:
       - name: Install packages
         run: npm ci
 
-      - name: DB tests
+      - name: Unit tests
         run: npm run test:unit
+
+      - name: Integration tests
+        run: npm run test:integration
 
 
