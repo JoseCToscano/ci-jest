@@ -28,5 +28,5 @@ jobs:
         run: npm ci
       - name: DB tests
         run: npm run test:unit
-          - env: 'MYSQL_HOST=db'
+          environment: 'MYSQL_HOST=db'
 
