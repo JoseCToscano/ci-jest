@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1662134990669" clover="3.2.0">
-  <project timestamp="1662134990669" name="All files">
+<coverage generated="1662135163498" clover="3.2.0">
+  <project timestamp="1662135163498" name="All files">
     <metrics statements="51" coveredstatements="51" conditionals="10" coveredconditionals="8" methods="4" coveredmethods="4" elements="65" coveredelements="63" complexity="0" loc="51" ncloc="51" packages="3" files="3" classes="3"/>
     <package name="src">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -61,14 +61,14 @@
       <metrics statements="8" coveredstatements="8" conditionals="5" coveredconditionals="5" methods="2" coveredmethods="2"/>
       <file name="example.ts" path="/Users/josetoscano/Documents/Atrato/ci-jest/src/services/example.ts">
         <metrics statements="8" coveredstatements="8" conditionals="5" coveredconditionals="5" methods="2" coveredmethods="2"/>
-        <line num="1" count="1" type="cond" truecount="2" falsecount="0"/>
-        <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="1" type="cond" truecount="2" falsecount="0"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="1" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
       </file>
     </package>
   </project>
