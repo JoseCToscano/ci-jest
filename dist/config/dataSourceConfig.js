@@ -12,10 +12,6 @@ var Config = /** @class */ (function () {
     }
     Config.prototype.getDataSourceConfig = function (cli) {
         if (cli === void 0) { cli = false; }
-        var dbName = DB_NAME;
-        if (process.env.JEST_WORKER_ID) {
-            dbName += "_".concat(process.env.JEST_WORKER_ID);
-        }
         var entitiesStr = cli
             ? 'src/models/**/*.entity{.ts,.js}'
             : 'dist/src/models/**/*.entity.js';
@@ -28,7 +24,7 @@ var Config = /** @class */ (function () {
             port: Number(DB_PORT),
             username: DB_USER,
             password: DB_PASSWORD,
-            database: dbName,
+            database: DB_NAME,
             synchronize: false,
             entities: [entitiesStr],
             migrationsTableName: 'migration',

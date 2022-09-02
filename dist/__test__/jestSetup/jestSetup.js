@@ -100,18 +100,17 @@ var validateDistFolder = function () { return __awaiter(void 0, void 0, void 0, 
     });
 }); };
 module.exports = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var config, _a, database, connectionConfig, connection, testdbsName, workersTotal, workers;
+    var config, _a, testdbsName, connectionConfig, connection, workersTotal, workers;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, validateDistFolder()];
             case 1:
                 _b.sent();
                 config = new dataSourceConfig_1.Config();
-                _a = config.getDataSourceConfig(), database = _a.database, connectionConfig = __rest(_a, ["database"]);
+                _a = config.getDataSourceConfig(), testdbsName = _a.database, connectionConfig = __rest(_a, ["database"]);
                 return [4 /*yield*/, (0, typeorm_1.createConnection)(connectionConfig)];
             case 2:
                 connection = _b.sent();
-                testdbsName = 'test_jestdb';
                 workersTotal = 1;
                 workers = Array(workersTotal).fill(1);
                 return [4 /*yield*/, Promise.all(workers.map(function (_current, idx) { return __awaiter(void 0, void 0, void 0, function () {
@@ -133,9 +132,12 @@ module.exports = function () { return __awaiter(void 0, void 0, void 0, function
                                     return [4 /*yield*/, workerDbConnection.initialize()];
                                 case 4:
                                     _a.sent();
+                                    console.log('before migrations');
+                                    console.log(workerDbConnection);
                                     return [4 /*yield*/, workerDbConnection.runMigrations()];
                                 case 5:
                                     _a.sent();
+                                    console.log('after migrations');
                                     return [4 /*yield*/, workerDbConnection.destroy()];
                                 case 6:
                                     _a.sent();

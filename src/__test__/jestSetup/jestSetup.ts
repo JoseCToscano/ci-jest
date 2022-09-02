@@ -2,6 +2,7 @@ import {ConnectionOptions, createConnection, DataSource, DataSourceOptions} from
 import * as fs from 'fs';
 import { getJestWorkers } from './jestUtils';
 import {Config} from "../../config/dataSourceConfig";
+import {AppDataSource} from "../../data-source";
 
 const validateDistFolder = async (): Promise<void> => {
 	return new Promise((resolve, reject) => {
@@ -13,7 +14,7 @@ const validateDistFolder = async (): Promise<void> => {
 				return reject(error);
 			}
 			if (err) {
-				return reject(err);
+				return reject(err);nfig
 			}
 			if (!files.length) {
 				return reject(error);
@@ -24,12 +25,16 @@ const validateDistFolder = async (): Promise<void> => {
 };
 
 module.exports = async () => {
+	console.log('Ola')
 	await validateDistFolder();
+	console.log('Ola 2')
 	const config = new Config();
 	const {database: testdbsName, ...connectionConfig} = config.getDataSourceConfig();
+	console.log('Ola 3')
 
 	const connection = await createConnection(connectionConfig as ConnectionOptions);
 
+	console.log('Ola 4')
 	const workersTotal = 1;// getJestWorkers();
 
 	const workers = Array(workersTotal).fill(1);
@@ -41,7 +46,10 @@ module.exports = async () => {
 				await connection.query(`CREATE DATABASE ${workerdb};`);
 				const workerDbConnection = new DataSource({...connectionConfig, database: workerdb} as DataSourceOptions)
 				await workerDbConnection.initialize();
+				console.log('before migrations')
+				console.log(workerDbConnection)
 				await workerDbConnection.runMigrations();
+				console.log('after migrations')
 				await workerDbConnection.destroy();
 			} catch (err) {
 				console.log(err);

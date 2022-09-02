@@ -14,10 +14,10 @@ getDataSourceConfig(cli = false): DataSourceOptions {
 
     const entitiesStr = cli
         ? 'src/models/**/*.entity{.ts,.js}'
-        : 'dist/src/models/**/*.entity.js';
+        : 'dist/models/**/*.entity.js';
     const migrationsStr = cli
         ? 'src/migration/*.ts'
-        : 'dist/src/migration/*.js';
+        : 'dist/migration/*.js';
 
     return {
         type: 'mysql',

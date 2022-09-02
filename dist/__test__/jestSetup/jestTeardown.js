@@ -61,38 +61,47 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var dataSourceConfig_1 = require("../../config/dataSourceConfig");
 module.exports = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var config, _a, database, connectionConfig, connection, testdbsName, workers, i, workerdb, workerDbConnection;
+    var config, _a, testdbsName, connectionConfig, connection, workersTotal, workers;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 config = new dataSourceConfig_1.Config();
-                _a = config.getDataSourceConfig(), database = _a.database, connectionConfig = __rest(_a, ["database"]);
+                _a = config.getDataSourceConfig(), testdbsName = _a.database, connectionConfig = __rest(_a, ["database"]);
                 return [4 /*yield*/, (0, typeorm_1.createConnection)(connectionConfig)];
             case 1:
                 connection = _b.sent();
-                testdbsName = 'test_jestdb';
-                workers = 1;
-                i = 1;
-                _b.label = 2;
+                workersTotal = 1;
+                workers = Array(workersTotal).fill(1);
+                return [4 /*yield*/, Promise.all(workers.map(function (_current, idx) { return __awaiter(void 0, void 0, void 0, function () {
+                        var workerdb, workerDbConnection, err_1;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 4, , 5]);
+                                    workerdb = "".concat(testdbsName, "_").concat(idx + 1);
+                                    workerDbConnection = new typeorm_1.DataSource(__assign(__assign({}, connectionConfig), { database: workerdb }));
+                                    return [4 /*yield*/, workerDbConnection.initialize()];
+                                case 1:
+                                    _a.sent();
+                                    return [4 /*yield*/, workerDbConnection.dropDatabase()];
+                                case 2:
+                                    _a.sent();
+                                    return [4 /*yield*/, workerDbConnection.destroy()];
+                                case 3:
+                                    _a.sent();
+                                    return [3 /*break*/, 5];
+                                case 4:
+                                    err_1 = _a.sent();
+                                    console.log(err_1);
+                                    throw err_1;
+                                case 5: return [2 /*return*/];
+                            }
+                        });
+                    }); }))];
             case 2:
-                if (!(i <= workers)) return [3 /*break*/, 7];
-                workerdb = "".concat(testdbsName, "_").concat(i);
-                workerDbConnection = new typeorm_1.DataSource(__assign(__assign({}, connectionConfig), { database: workerdb }));
-                return [4 /*yield*/, workerDbConnection.initialize()];
+                _b.sent();
+                return [4 /*yield*/, connection.close()];
             case 3:
-                _b.sent();
-                return [4 /*yield*/, workerDbConnection.dropDatabase()];
-            case 4:
-                _b.sent();
-                return [4 /*yield*/, workerDbConnection.destroy()];
-            case 5:
-                _b.sent();
-                _b.label = 6;
-            case 6:
-                i++;
-                return [3 /*break*/, 2];
-            case 7: return [4 /*yield*/, connection.close()];
-            case 8:
                 _b.sent();
                 process.exit(0);
                 return [2 /*return*/];
