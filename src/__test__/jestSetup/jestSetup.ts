@@ -1,6 +1,6 @@
 import {ConnectionOptions, createConnection} from 'typeorm';
 import * as fs from 'fs';
-import {Config} from "../../config/dataSourceConfig";
+import {DataSource} from "../../config/dataSourceConfig";
 
 const validateDistFolder = async (): Promise<void> => {
 	return new Promise((resolve, reject) => {
@@ -22,12 +22,11 @@ const validateDistFolder = async (): Promise<void> => {
 	});
 };
 
-const config = new Config();
 
 module.exports = async () => {
 	await validateDistFolder();
 
-	const {database, ...connectionConfig} = config.getDataSourceConfig();
+	const {database, ...connectionConfig} = DataSource.getConfig();
 	const connection = await createConnection({
 		type: connectionConfig.type,
 		username: connectionConfig.username,
@@ -36,7 +35,6 @@ module.exports = async () => {
 		port: connectionConfig.port,
 		name: 'baseConnection'
 	});
-	// const connection = await createConnection(connectionConfig as ConnectionOptions);
 
 
 	const workersTotal = 1; // getJestWorkers();

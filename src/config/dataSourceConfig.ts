@@ -7,11 +7,13 @@ const DB_USER="root"
 const DB_PASSWORD="ci_jest_password"
 const DB_NAME="ci_jest_db"
 
-export class Config{
+export class DataSource {
 
-
-getDataSourceConfig(cli = false): MysqlConnectionOptions {
-
+static getConfig(cli = false): MysqlConnectionOptions {
+    let dbName = DB_NAME;
+    if (process.env.JEST_WORKER_ID) {
+        dbName += `_${process.env.JEST_WORKER_ID}`;
+    }
     const entitiesStr = cli
         ? 'src/models/**/*.entity{.ts,.js}'
         : 'dist/models/**/*.entity.js';
@@ -25,7 +27,7 @@ getDataSourceConfig(cli = false): MysqlConnectionOptions {
         port: Number(DB_PORT),
         username: DB_USER,
         password: DB_PASSWORD,
-        database: DB_NAME,
+        database: dbName,
         synchronize: false,
         entities: [entitiesStr],
         migrationsTableName: 'migration',

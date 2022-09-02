@@ -1,5 +1,6 @@
 import {ExampleService} from "./example";
 import {Connection, createConnection} from "typeorm";
+import {DataSource} from "../config/dataSourceConfig";
 
 describe('Example unit tests', () => {
     let service: ExampleService;
@@ -7,7 +8,7 @@ describe('Example unit tests', () => {
 
 	beforeAll(async () => {
 		service = new ExampleService();
-		connection = await createConnection();
+		connection = await createConnection(DataSource.getConfig());
 	});
 
 	afterEach(() => {
@@ -20,7 +21,7 @@ describe('Example unit tests', () => {
 
 	test('Sample test', async ()=>{
 		const clgSpy = jest.spyOn(console, 'log').mockImplementation();
-		await service.delayedConsoleLog('mesg', 2000);
+		await service.delayedConsoleLog('mesg', 1);
 		expect(clgSpy).toHaveBeenCalledWith('mesg');
 	});
 

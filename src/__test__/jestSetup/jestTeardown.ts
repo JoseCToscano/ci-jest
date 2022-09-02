@@ -1,9 +1,8 @@
 import { createConnection,} from 'typeorm';
-import {Config} from "../../config/dataSourceConfig";
+import {DataSource} from "../../config/dataSourceConfig";
 
 module.exports = async () => {
-	const config = new Config();
-	const {database, ...connectionConfig} = config.getDataSourceConfig();
+	const {database, ...connectionConfig} = DataSource.getConfig();
 
 	const connection = await createConnection({
 		type: connectionConfig.type,

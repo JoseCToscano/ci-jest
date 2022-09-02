@@ -6,4 +6,4 @@ tmp/
 temp/
 dist/
 ormconfig.json
-coverage/
+coverage
