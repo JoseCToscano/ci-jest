@@ -1,14 +1,14 @@
 import {ExampleService} from "./example";
-import {Pool} from "promise-mysql";
-import {openConnection} from "../config/db";
+import {AppDataSource} from "../data-source";
+import { DataSource} from "typeorm";
 
 describe('Example unit tests', () => {
     let service: ExampleService;
-	let connection: Pool;
+	let connection: DataSource;
 
 	beforeAll(async () => {
 		service = new ExampleService();
-		connection = await openConnection();
+		connection = await AppDataSource.initialize();
 	});
 
 	afterEach(() => {
@@ -16,7 +16,7 @@ describe('Example unit tests', () => {
 	});
 
 	afterAll(async()=>{
-		await connection.end();
+		await connection.destroy();
 	})
 
 	test('Sample test', async ()=>{

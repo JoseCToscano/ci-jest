@@ -1,5 +1,6 @@
-.idea
-dist
-node_modules
-coverage
-src/config/.env.dev
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/

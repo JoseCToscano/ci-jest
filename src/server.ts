@@ -1,11 +1,13 @@
-import {openConnection} from "./config/db";
+import {AppDataSource} from "./data-source";
 
 const port = process.env.PORT || 5000;
 
 import { App } from './App';
 
+
 export const startServer = (): void => {
-    openConnection()
+
+    AppDataSource.initialize()
         .then((conn) =>  conn.query('SELECT 1 + 1 AS solution')
         )
         .then(() => {
