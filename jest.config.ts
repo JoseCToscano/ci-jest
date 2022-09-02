@@ -15,6 +15,9 @@ export default {
     '<rootDir>/dist',
   ],
   testEnvironment: 'node',
+  globalSetup: '<rootDir>/src/__test__/jestSetup/jestSetup.ts',
+  setupFilesAfterEnv: ['<rootDir>/src/__test__/jestSetup/jestAfter.ts'],
+  globalTeardown: '<rootDir>/src/__test__/jestSetup/jestTeardown.ts',
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
