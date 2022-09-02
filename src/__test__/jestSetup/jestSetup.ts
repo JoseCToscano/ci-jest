@@ -33,7 +33,7 @@ module.exports = async () => {
 	const workersTotal = 1;// getJestWorkers();
 
 	const workers = Array(workersTotal).fill(1);
-
+console.log('This is the database name: ', testdbsName)
 	await Promise.all(
 		workers.map(async (_current, idx) => {
 			const workerdb = `${testdbsName}_${idx + 1}`;
