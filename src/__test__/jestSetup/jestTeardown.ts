@@ -5,7 +5,14 @@ module.exports = async () => {
 	const config = new Config();
 	const {database, ...connectionConfig} = config.getDataSourceConfig();
 
-	const connection = await createConnection(connectionConfig);
+	const connection = await createConnection({
+		type: connectionConfig.type,
+		username: connectionConfig.username,
+		password: connectionConfig.password,
+		host: connectionConfig.host,
+		port: connectionConfig.port,
+		name: 'baseConnection'
+	});
 	const workersTotal = 1 ;// getJestWorkers();
 
 	const workers = Array(workersTotal).fill(1);

@@ -1,13 +1,15 @@
-import {AppDataSource} from "./data-source";
+import {createConnection} from "typeorm";
 
+const config = new Config();
 const port = process.env.PORT || 5000;
 
 import { App } from './App';
+import {Config} from "./config/dataSourceConfig";
 
 
 export const startServer = (): void => {
 
-    AppDataSource.initialize()
+    createConnection(config.getDataSourceConfig())
         .then((conn) =>  conn.query('SELECT 1 + 1 AS solution')
         )
         .then(() => {

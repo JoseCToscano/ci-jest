@@ -1,4 +1,4 @@
-import { ConnectionOptions} from 'typeorm';
+import {MysqlConnectionOptions} from "typeorm/driver/mysql/MysqlConnectionOptions";
 
 // TODO: Env var file
 const DB_HOST="localhost"
@@ -10,7 +10,7 @@ const DB_NAME="ci_jest_db"
 export class Config{
 
 
-getDataSourceConfig(cli = false): ConnectionOptions {
+getDataSourceConfig(cli = false): MysqlConnectionOptions {
 
     const entitiesStr = cli
         ? 'src/models/**/*.entity{.ts,.js}'

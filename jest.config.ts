@@ -10,10 +10,6 @@ export default {
   },
   preset: 'ts-jest/presets/js-with-ts',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    '<rootDir>/dist',
-  ],
   testEnvironment: 'node',
   globalSetup: '<rootDir>/src/__test__/jestSetup/jestSetup.ts',
   setupFilesAfterEnv: ['<rootDir>/src/__test__/jestSetup/jestAfter.ts'],
@@ -32,7 +28,11 @@ export default {
 
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
-
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/src/migration',
+    '<rootDir>/dist',
+  ],
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,
 
