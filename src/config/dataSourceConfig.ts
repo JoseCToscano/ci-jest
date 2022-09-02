@@ -11,11 +11,6 @@ export class Config{
 
 
 getDataSourceConfig(cli = false): DataSourceOptions {
-    let dbName = DB_NAME;
-
-    if (process.env.JEST_WORKER_ID) {
-        dbName += `_${process.env.JEST_WORKER_ID}`;
-    }
 
     const entitiesStr = cli
         ? 'src/models/**/*.entity{.ts,.js}'
@@ -30,7 +25,7 @@ getDataSourceConfig(cli = false): DataSourceOptions {
         port: Number(DB_PORT),
         username: DB_USER,
         password: DB_PASSWORD,
-        database: dbName,
+        database: DB_NAME,
         synchronize: false,
         entities: [entitiesStr],
         migrationsTableName: 'migration',

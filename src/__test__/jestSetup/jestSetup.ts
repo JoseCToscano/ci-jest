@@ -33,14 +33,12 @@ module.exports = async () => {
 	const workersTotal = 1;// getJestWorkers();
 
 	const workers = Array(workersTotal).fill(1);
-console.log('This is the database name: ', testdbsName)
 	await Promise.all(
 		workers.map(async (_current, idx) => {
 			const workerdb = `${testdbsName}_${idx + 1}`;
 			try {
 				await connection.query(`DROP DATABASE IF EXISTS ${workerdb};`);
 				await connection.query(`CREATE DATABASE ${workerdb};`);
-				console.log('Database ', workerdb, ' created')
 				const workerDbConnection = new DataSource({...connectionConfig, database: workerdb} as DataSourceOptions)
 				await workerDbConnection.initialize();
 				await workerDbConnection.runMigrations();
@@ -51,6 +49,5 @@ console.log('This is the database name: ', testdbsName)
 			}
 		})
 	);
-
 	await connection.close();
 };
