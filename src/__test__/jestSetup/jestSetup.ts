@@ -1,8 +1,6 @@
-import {ConnectionOptions, createConnection, DataSource, DataSourceOptions} from 'typeorm';
+import { createConnection } from 'typeorm';
 import * as fs from 'fs';
-import { getJestWorkers } from './jestUtils';
 import {Config} from "../../config/dataSourceConfig";
-import {AppDataSource} from "../../data-source";
 
 const validateDistFolder = async (): Promise<void> => {
 	return new Promise((resolve, reject) => {
@@ -14,7 +12,7 @@ const validateDistFolder = async (): Promise<void> => {
 				return reject(error);
 			}
 			if (err) {
-				return reject(err);nfig
+				return reject(err);
 			}
 			if (!files.length) {
 				return reject(error);
@@ -24,38 +22,38 @@ const validateDistFolder = async (): Promise<void> => {
 	});
 };
 
+const config = new Config();
+
 module.exports = async () => {
-	console.log('Ola')
 	await validateDistFolder();
-	console.log('Ola 2')
-	const config = new Config();
-	const {database: testdbsName, ...connectionConfig} = config.getDataSourceConfig();
-	console.log('Ola 3')
 
-	const connection = await createConnection(connectionConfig as ConnectionOptions);
+	const {database, ...connectionConfig} = config.getDataSourceConfig();
+	const connection = await createConnection(connectionConfig);
 
-	console.log('Ola 4')
-	const workersTotal = 1;// getJestWorkers();
+	const workersTotal = 1; // getJestWorkers();
 
 	const workers = Array(workersTotal).fill(1);
+
 	await Promise.all(
 		workers.map(async (_current, idx) => {
-			const workerdb = `${testdbsName}_${idx + 1}`;
+			const workerdb = `${database}_${idx + 1}`;
 			try {
 				await connection.query(`DROP DATABASE IF EXISTS ${workerdb};`);
 				await connection.query(`CREATE DATABASE ${workerdb};`);
-				const workerDbConnection = new DataSource({...connectionConfig, database: workerdb} as DataSourceOptions)
-				await workerDbConnection.initialize();
-				console.log('before migrations')
-				console.log(workerDbConnection)
+
+				const workerDbConnection = await createConnection({
+					...connectionConfig,
+					database: workerdb
+				});
+
 				await workerDbConnection.runMigrations();
-				console.log('after migrations')
-				await workerDbConnection.destroy();
+				await workerDbConnection.close();
 			} catch (err) {
 				console.log(err);
 				throw err;
 			}
 		})
 	);
+
 	await connection.close();
 };

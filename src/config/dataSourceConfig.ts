@@ -1,4 +1,4 @@
-import { DataSourceOptions} from 'typeorm';
+import { ConnectionOptions} from 'typeorm';
 
 // TODO: Env var file
 const DB_HOST="localhost"
@@ -10,7 +10,7 @@ const DB_NAME="ci_jest_db"
 export class Config{
 
 
-getDataSourceConfig(cli = false): DataSourceOptions {
+getDataSourceConfig(cli = false): ConnectionOptions {
 
     const entitiesStr = cli
         ? 'src/models/**/*.entity{.ts,.js}'
@@ -30,6 +30,9 @@ getDataSourceConfig(cli = false): DataSourceOptions {
         entities: [entitiesStr],
         migrationsTableName: 'migration',
         migrations: [migrationsStr],
+        cli: {
+            migrationsDir: 'src/migration',
+        }
     };
 }
 

@@ -13,10 +13,11 @@
       "test": "jest '(\\.|/)(test)\\.tsx?$'",
       "test:unit": "jest '(\\.|/)(unit.test)\\.tsx?$'",
       "test:integration": "jest '(\\.|/)(int.test)\\.tsx?$'",
+      "pretypeorm": "(rm -f ormconfig.json || :) && ts-node src/config/ormConfigGenerator.ts && echo '\\x1b[92mArchivo ormconfig.json generado\\x1b[0m'",
       "typeorm": "ts-node ./node_modules/typeorm/cli.js",
-      "typeorm:migration:generate": "(rm -rf dist || :) && npm run typeorm -- migration:generate -d src/config/ormconfig.ts ",
-      "typeorm:migration:run": "(rm -rf dist || :) && npm run typeorm -- migration:run -d src/config/ormconfig.ts ",
-      "typeorm:migration:revert": "(rm -rf dist || :) && npm run typeorm -- migration:revert  -d src/config/ormconfig.ts "
+      "typeorm:migration:generate": "(rm -rf dist || :) && npm run typeorm -- migration:generate -n",
+      "typeorm:migration:run": "(rm -rf dist || :) && npm run typeorm -- migration:run",
+      "typeorm:migration:revert": "(rm -rf dist || :) && npm run typeorm -- migration:revert"
    },
    "repository": {
       "type": "git",
@@ -46,9 +47,9 @@
       "cors": "^2.8.5",
       "dotenv": "^16.0.2",
       "express": "^4.18.1",
-      "promise-mysql": "^5.2.0",
-      "typeorm": "0.3.9",
+      "mysql": "^2.18.1",
+      "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
-      "pg": "^8.4.0"
+      "typeorm": "^0.2.36"
    }
 }

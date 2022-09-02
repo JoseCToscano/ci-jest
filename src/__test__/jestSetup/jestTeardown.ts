@@ -1,11 +1,11 @@
-import {ConnectionOptions, createConnection, DataSource, DataSourceOptions} from 'typeorm';
+import { createConnection,} from 'typeorm';
 import {Config} from "../../config/dataSourceConfig";
 
 module.exports = async () => {
 	const config = new Config();
-	const {database: testdbsName, ...connectionConfig} = config.getDataSourceConfig();
+	const {database, ...connectionConfig} = config.getDataSourceConfig();
 
-	const connection = await createConnection(connectionConfig as ConnectionOptions);
+	const connection = await createConnection(connectionConfig);
 	const workersTotal = 1 ;// getJestWorkers();
 
 	const workers = Array(workersTotal).fill(1);
@@ -13,11 +13,8 @@ module.exports = async () => {
 	await Promise.all(
 		workers.map(async (_current, idx) => {
 			try {
-			const workerdb = `${testdbsName}_${idx + 1}`;
-				const workerDbConnection = new DataSource({...connectionConfig, database: workerdb} as DataSourceOptions)
-				await workerDbConnection.initialize();
-				await workerDbConnection.dropDatabase();
-				await workerDbConnection.destroy();
+			const workerdb = `${database}_${idx + 1}`;
+				await connection.query(`DROP DATABASE IF EXISTS ${workerdb};`);
 			} catch (err) {
 				console.log(err);
 				throw err;
