@@ -1,0 +1,43 @@
+pipeline{
+    agent any
+    stages {
+    stage('Build') { // for display purposes
+        steps{
+            echo "Build successfully!"
+        }
+    }
+   stage('Tests') { // for display purposes
+        steps{
+            echo "Tests passed successfully!"
+        }
+    }
+   stage('QA env') { // for display purposes
+        steps{
+            echo "Quality ensured :)"
+        }
+    }
+   stage('Deploy') { // for display purposes
+        steps{
+            echo "Awseom code has been deployed!"
+        }
+    }
+
+    }
+    post{
+        always{
+            echo "This will always run"
+        }
+        success {
+            echo "This will run on success!"
+        }
+        failure{
+            echo "This will run in failure"
+        }
+        unstable{
+            echo "This will run only if run was marked as unstable"
+        }
+        changed{
+            echo "This will only run if the state of the pipeline has changed"
+        }
+    }
+}
