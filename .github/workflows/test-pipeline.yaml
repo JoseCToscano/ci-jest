@@ -1,5 +1,6 @@
-name: Automated test pipeline
+name: Automated Unit Tests
 on: [push]
+
 jobs:
   integration-tests:
     name: Running automated test pipeline
@@ -23,11 +24,8 @@ jobs:
       - name: Install packages
         run: npm ci
 
-
-      - name: Unit tests
+      - name: Integration tests
         run: npm run test:unit
 
-      - name: Integration tests
-        run: npm run test:integration
 
 
