@@ -1,7 +1,7 @@
 pipeline{
     agent any
 
-    tools { nodejs "14.17.6" }
+    tools { nodejs "14.17.6", docker "default-docker" }
 
     stages {
     stage('Test npm') {
