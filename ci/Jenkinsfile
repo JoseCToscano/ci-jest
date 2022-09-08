@@ -14,12 +14,17 @@ pipeline{
         """
       }
     }
-    stage('Install dependencies') { // for display purposes
+//     stage('Install dependencies') { // for display purposes
+//         steps{
+//             sh "npm ci"
+//         }
+//     }
+
+    stage('Start docker'){
         steps{
-            sh "npm ci"
+            sh "systemctl start docker"
         }
     }
-
     stage('Build docker image'){
         steps{
             sh "docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile ."
