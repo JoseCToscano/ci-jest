@@ -1,0 +1,27 @@
+Version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+pre_build:
+  commands:
+    - pip3 install awscli --upgrade --user
+    - export DATE=`date +%Y%m%d%H%M`
+    - export DBIDENTIFIER=db-cluster-identifier-prefix-$DATE
+    - echo $DBIDENTIFIER
+    - aws rds restore-db-cluster-from-snapshot --snapshot-identifier arn:aws:rds:region-ID:account-ID:cluster-snapshot:db-snapshot-identifier –vpc-security-group-ids vpc-security-group-id --db-cluster-identifier $DBIDENTIFIER --engine aurora
+    - while [ $(aws rds describe-db-cluster-endpoints --db-cluster-identifier $DBNAME | grep -c available) -eq 0 ]; do echo "sleep 60s"; sleep 60; done
+    - echo "Temp db ready"
+    - export ENDPOINT=$(aws rds describe-db-cluster-endpoints --db-cluster-identifier $DBIDENTIFIER| grep "\"Endpoint\"" | grep -v "\-ro\-" | awk -F '\"' '{print $4}')
+    - echo $ENDPOINT
+build:
+  commands:
+    - echo Build started on `date`
+    - echo proceed db connection to $ENDPOINT
+    - echo proceed db migrate update, DDL proceed here
+    - echo proceed application test, CRUD test run here
+post_build:
+  commands:
+    - echo Build completed on `date`
+    - echo $DBNAME
+    - aws rds delete-db-cluster --db-cluster-identifier $DBIDENTIFIER --skip-final-snapshot &
