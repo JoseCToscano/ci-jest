@@ -8,7 +8,7 @@ pipeline{
     }
    stage('Tests') { // for display purposes
         steps{
-            echo "Tests passed successfully!"
+            echo "Insert tests here: Tests passed successfully!"
         }
     }
    stage('QA env') { // for display purposes
