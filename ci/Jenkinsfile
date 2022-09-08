@@ -25,6 +25,11 @@ pipeline{
 //             sh "sudo systemctl start docker"
 //         }
 //     }
+    stage('User'){
+        steps {
+            sh "whoami"
+        }
+    }
     stage('Build docker image'){
         steps{
             sh "sudo docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile ."
