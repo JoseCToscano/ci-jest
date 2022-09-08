@@ -22,7 +22,7 @@ pipeline{
 
     stage('Start docker'){
         steps{
-            sh "systemctl start docker"
+            sh "sudo systemctl start docker"
         }
     }
     stage('Build docker image'){
