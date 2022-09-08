@@ -11,6 +11,9 @@ phases:
     commands:
       - echo Running tests...
       - echo Tests started on `date`
+      - whoami
+      - docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile .
+      - docker-compose -f src/__test__/docker/docker-compose.yml up -d
       - npm run test
   post_build:
     commands:
