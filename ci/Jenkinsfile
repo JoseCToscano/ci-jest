@@ -32,12 +32,12 @@ pipeline{
     }
     stage('Build docker image'){
         steps{
-            sh "sudo docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile ."
+            sh "docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile ."
         }
     }
     stage('Docker compose'){
         steps{
-            sh "sudo docker-compose -f src/__test__/docker/docker-compose.yml up -d"
+            sh "docker-compose -f src/__test__/docker/docker-compose.yml up -d"
         }
     }
    stage('Tests') { // for display purposes
