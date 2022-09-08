@@ -1,6 +1,16 @@
 pipeline{
     agent any
+
+    tools { nodejs "nodejs" }
+
     stages {
+    stage('Test npm') {
+      steps {
+        sh """
+          npm --version
+        """
+      }
+    }
     stage('Install dependencies') { // for display purposes
         steps{
             sh "npm ci"
