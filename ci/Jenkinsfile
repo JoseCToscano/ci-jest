@@ -16,6 +16,17 @@ pipeline{
             sh "npm ci"
         }
     }
+
+    stage('Build docker image'){
+        steps{
+            sh "docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile ."
+        }
+    }
+    stage('Docker compose'){
+        steps{
+            sh "docker-compose -f src/__test__/docker/docker-compose.yml up -d"
+        }
+    }
    stage('Tests') { // for display purposes
        steps{
             sh "npm run test"
