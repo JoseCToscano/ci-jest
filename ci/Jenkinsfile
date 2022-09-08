@@ -20,19 +20,19 @@ pipeline{
 //         }
 //     }
 
-    stage('Start docker'){
-        steps{
-            sh "sudo systemctl start docker"
-        }
-    }
+//     stage('Start docker'){
+//         steps{
+//             sh "sudo systemctl start docker"
+//         }
+//     }
     stage('Build docker image'){
         steps{
-            sh "docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile ."
+            sh "sudo docker build -t migrate-mysql -f src/__test__/docker/migrate-mysql.dockerfile ."
         }
     }
     stage('Docker compose'){
         steps{
-            sh "docker-compose -f src/__test__/docker/docker-compose.yml up -d"
+            sh "sudo docker-compose -f src/__test__/docker/docker-compose.yml up -d"
         }
     }
    stage('Tests') { // for display purposes
