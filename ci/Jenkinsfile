@@ -3,20 +3,17 @@ pipeline{
     stages {
     stage('Install dependencies') { // for display purposes
         steps{
-            npm ci
-            echo "Installed dependencies!"
+            sh "npm ci"
         }
     }
     stage('Build') { // for display purposes
         steps{
-            npm run build
-            echo "Build successfully!"
+            sh "npm run build"
         }
     }
    stage('Tests') { // for display purposes
-        steps{
-            npm run test
-            echo "Insert tests here:  Tests passed successfully!"
+       steps{
+            sh "npm run test"
         }
     }
    stage('QA env') { // for display purposes
