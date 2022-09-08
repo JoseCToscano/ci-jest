@@ -16,14 +16,14 @@ pipeline{
             sh "npm ci"
         }
     }
-    stage('Build') { // for display purposes
-        steps{
-            sh "npm run build"
-        }
-    }
    stage('Tests') { // for display purposes
        steps{
             sh "npm run test"
+        }
+    }
+    stage('Build') { // for display purposes
+        steps{
+            sh "npm run build"
         }
     }
    stage('QA env') { // for display purposes
